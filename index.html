@@ -157,7 +157,11 @@
   .headline {
     font-family: "Cormorant Garamond", serif;
     font-weight: 500;
-    line-height: 1.02;
+    /* Roomy line-height + padding so descenders (the "g") stay inside the
+       gradient text box — otherwise -webkit-background-clip:text leaves the
+       tail unfilled and it looks cut off. */
+    line-height: 1.18;
+    padding-bottom: 0.12em;
     font-size: clamp(2.9rem, 11vw, 6rem);
     letter-spacing: 0.01em;
     background: linear-gradient(180deg, var(--gold-bright) 0%, var(--gold) 48%, var(--gold-deep) 100%);
