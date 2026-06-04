@@ -32,7 +32,7 @@
 
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
-  html, body { height: 100%; max-width: 100%; overflow-x: hidden; }
+  html, body { max-width: 100%; overflow-x: hidden; }
 
   body {
     font-family: "Montserrat", -apple-system, system-ui, sans-serif;
@@ -40,8 +40,11 @@
     background: var(--green-deep);
     min-height: 100svh;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    /* Center with auto margins on the child (see .frame) rather than
+       justify/align-center, so when content is taller than the viewport it
+       stays scrollable and the top never gets clipped. */
+    padding: clamp(1.5rem, 4vh, 3rem) 0;
+    box-sizing: border-box;
     overflow-x: hidden;
     position: relative;
     -webkit-font-smoothing: antialiased;
@@ -97,6 +100,7 @@
 
   .frame {
     width: min(92vw, 860px);
+    margin: auto; /* safe centering — collapses to 0 when content overflows */
     padding: clamp(2.4rem, 6vw, 4.5rem) clamp(1.6rem, 5vw, 3.5rem);
     text-align: center;
     position: relative;
@@ -297,6 +301,19 @@
     .location { font-size: 0.72rem; letter-spacing: 0.16em; padding-left: 0.16em; line-height: 1.8; }
     .contact { flex-direction: column; gap: 0.8rem; }
     .contact a { width: 100%; max-width: 280px; text-align: center; }
+  }
+
+  /* ---------- Short viewports (laptops / landscape) — compress to fit ---------- */
+  @media (max-height: 780px) {
+    .frame { padding-top: 1.6rem; padding-bottom: 1.6rem; }
+    .medallion { width: clamp(96px, 14vh, 130px); height: clamp(96px, 14vh, 130px); margin-bottom: 1.1rem; }
+    .tagline { margin-bottom: 1.1rem; }
+    .headline { font-size: clamp(2.4rem, 9vh, 4.6rem); }
+    .subhead { font-size: clamp(1rem, 2.6vh, 1.5rem); }
+    .divider { margin: 1.1rem auto 0.9rem; }
+    .location { margin-top: 0; }
+    .contact { margin-top: 1.3rem; }
+    .footnote { margin-top: 1.5rem; }
   }
 </style>
 </head>
